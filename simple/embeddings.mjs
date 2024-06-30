@@ -3,7 +3,10 @@ import { pipeline } from '@xenova/transformers'
 
 const sentence = process.argv[2] || 'My cat is used to sleeping on the bed during the day.'
 
+// all-MiniLM-L6-v2 is a sentence-transformers model, with 384 dimensional dense vector space
 const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2')
+
+// pooling & normalize parameters are required for embeddings, to get vectors of fixed length
 const output = await extractor([sentence], { pooling: 'mean', normalize: true })
 
 console.log(output.data)
